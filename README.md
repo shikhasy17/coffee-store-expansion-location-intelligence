@@ -3,7 +3,7 @@
 ## Objective
 The goal of this project is to analyze the sales data of Coffee, a company that has been selling its products online since January 2023, and to recommend the top three major cities in India for opening new coffee shop locations based on consumer demand and sales performance.
 
-## Project Structure
+```sql
 
 DROP TABLE IF EXISTS city;
 CREATE TABLE city
@@ -47,10 +47,10 @@ CREATE TABLE sales
 	CONSTRAINT fk_customers FOREIGN KEY (customer_id) REFERENCES customers(customer_id) 
 );
 
-
+```
 
 -- Q.1 How many people in each city are estimated to consume coffee, given that 25% of the population does?
-
+```sql
 SELECT 
 	city_name,
 	ROUND(
@@ -59,10 +59,10 @@ SELECT
 	city_rank
 FROM city
 ORDER BY 2 DESC
-
+```
 -- Q.2 What is the total revenue generated from coffee sales across all cities in the last quarter of 2023?
 
-
+```sql
 SELECT 
 	SUM(total) as total_revenue
 FROM sales
@@ -88,9 +88,9 @@ WHERE
 GROUP BY 1
 ORDER BY 2 DESC
 
-
+```
 -- Q.3 How many units of each coffee product have been sold?
-
+```sql
 SELECT 
 	p.product_name,
 	COUNT(s.sale_id) as total_orders
@@ -100,12 +100,12 @@ sales as s
 ON s.product_id = p.product_id
 GROUP BY 1
 ORDER BY 2 DESC
-
+```
 -- Q.4 What is the average sales amount per customer in each city?
 
 -- city abd total sale
 -- no cx in each these city
-
+```sql
 
 SELECT 
 	ci.city_name,
@@ -123,10 +123,10 @@ JOIN city as ci
 ON ci.city_id = c.city_id
 GROUP BY 1
 ORDER BY 2 DESC
-
+```
 
 -- Q.5 Provide a list of cities along with their populations and estimated coffee consumers. Return city_name, total current cx, estimated coffee consumers (25%)
-
+```sql
 WITH city_table as 
 (
 	SELECT 
@@ -156,10 +156,10 @@ JOIN
 customers_table
 ON city_table.city_name = customers_table.city_name
 
-
+```
 
 -- Q6 What are the top 3 selling products in each city based on sales volume?
-
+```sql
 SELECT * 
 FROM -- table
 (
@@ -179,10 +179,10 @@ FROM -- table
 	-- ORDER BY 1, 3 DESC
 ) as t1
 WHERE rank <= 3
-
+```
 
 -- Q.7 How many unique customers are there in each city who have purchased coffee products?
-
+```sql
 SELECT * FROM products;
 
 
@@ -200,9 +200,9 @@ WHERE
 	s.product_id IN (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14)
 GROUP BY 1
 
-
+```
 -- Q.8 Find each city and their average sale per customer and avg rent per customer
-
+```sql
 WITH city_table
 AS
 (
@@ -244,10 +244,10 @@ JOIN city_table as ct
 ON cr.city_name = ct.city_name
 ORDER BY 4 DESC
 
-
+```
 
 -- Q.9 Calculate the percentage growth (or decline) in sales over different time periods (monthly)by each city
-
+```sql
 WITH
 monthly_sales
 AS
@@ -291,12 +291,12 @@ SELECT
 FROM growth_ratio
 WHERE 
 	last_month_sale IS NOT NULL	
-
+```
 
 -- Q.10 Identify top 3 city based on highest sales, return city name, total sale, total rent, total customers, estimated coffee consumer
 
 
-
+```sql
 WITH city_table
 AS
 (
@@ -341,7 +341,7 @@ FROM city_rent as cr
 JOIN city_table as ct
 ON cr.city_name = ct.city_name
 ORDER BY 2 DESC
-
+```
 /*
 
 
@@ -364,7 +364,7 @@ After analyzing the data, the recommended top three cities for new store opening
 2. Average rent per customer is very low at 156.  
 3. Average sales per customer is better at 11.6k.
 
----
+
 
 
 
