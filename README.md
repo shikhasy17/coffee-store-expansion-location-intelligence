@@ -342,9 +342,6 @@ JOIN city_table as ct
 ON cr.city_name = ct.city_name
 ORDER BY 2 DESC
 ```
-/*
-
-
 
 ## Recommendations
 After analyzing the data, the recommended top three cities for new store openings are:
